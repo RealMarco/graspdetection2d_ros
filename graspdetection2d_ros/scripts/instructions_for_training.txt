@@ -1,0 +1,40 @@
+#.py files should be run in Linux Shell
+
+#Install the requirements
+$ pip install -r requirements.txt
+
+#Convert the PCD files in Cornell Dataset to depth images
+$ python -m utils.dataset_processing.generate_cornell_depth <Path To Dataset>
+
+#A model can be trained using the `train_network_x.py` script.  Run `train_network_x.py --help` to see a full list of options. For example:
+$ python train_network_o.py --dataset cornell --dataset-path <Path To Dataset> --description training_cornell --ds-shuffle  --augment 1
+
+#The trained network can be evaluated using the `evaluate_x.py` script.  Run `evaluate_x.py --help` for a full set of options. For example:
+$ python evaluate_save.py --network <Path to Trained Network> --dataset cornell --dataset-path <Path to Dataset> --iou-eval
+
+#Instructions for different main .py files.
+
+#Model Training
+train_network_o.py - Object Wise Training for  Cornell Dataset when set --ds-shuffle  --augment 1;   
+train_network_ot.py- Object Wise Transfer Learning Cornell  Dataset  when set --ds-shuffle --augment 1;
+train_network_i.py - Image Wise Training for Cornell  Dataset when set --ds-shuffle --augment 1;
+train_network_it.py - Image Wise Transfer Learning for Cornell  Dataset when set --ds-shuffle augment 1;
+#P.S. The argument ds-shuffle in train_network_i and train_network_o stands for shuffling both and shuffling only at every epoch respectively. 
+
+#Testing the test set by trained models. 
+#Generating, plotting and saving the grasps in rgb images, as well as depth images, grasp quality images, angle images and width images based on trained model and offline test set.
+evaluate2.py - Object Wise... when don't set ds-shuffle, Image-wise... when set ds-shuffle
+evaluate_save.py - based on evaluate2.py, and is modified to save all of the outputs of test set;
+                               replace SubsetRandomSampler by SequentialSampler
+
+#Models in /content/drive/MyDrive/GR_ConvNet_Code/inference/models
+grconvnet3.py - the standard network used by this paper
+grconvnet3_nobn.py - modified from grconvnet3.py, 
+                     	     without Batch Normalization in convolutional and transposed convolutional layers.
+
+#Plotting the graphs in my thesis. 
+vis_augmentation.py           - Fig 2.6 in 2.6 Data Augmentation
+vis_batchnorm.py                - Fig 4.1 in 4.2 Batch Normalization
+vis_dropout.py	             - Fig 4.3 in 4.3 Dropout
+vis_adam_sgd.py                  - Fig 4.4 in 4.4 Adam+SGD Optimization Algorithm
+vis_cornell_performance.py - Fig 4.8 in 4.7 Training Results 

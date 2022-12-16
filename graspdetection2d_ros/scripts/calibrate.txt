@@ -1,0 +1,34 @@
+#coordinate system of images
+x, y is the same as normal pixel system 
+anticlockwise theta is positive while clockwise theta is negative 
+width <= the width of the gripper 
+
+
+#coordinate system of the camera
+
+#coordinate system of robots/gripper 
+
+------------------------------------------------------------------
+ZZY Calibration
+
+thoery part refers to 
+A Flexible New Technique for Camera Calibration
+https://www.zhihu.com/question/29448299/answer/335573627
+
+practise part refer to
+
+0.from pixels to real world
+1.摄像机模型中的几个坐标系 
+	[世界坐标系(w)] 参考坐标系/基准坐标系，用于描述摄像机和物体的位置 -
+	[摄像机坐标系(c)] 固定在摄像机上，原点在光心，Zc轴沿光轴方向， Xc/Yc轴分别平行于成像平面 -
+	[以物理单位表示的图像坐标系 (x, y)] 原点在摄像机光轴与图像平面的交点，x/y轴与摄像机Xc/Yc轴平行，沿图像平面方向 
+	[以像素为单位表示的图像坐标系  (u, v)] 原点在数字图像的左上角，u/v轴沿图像平面向右向下为正方向
+2.fake code, see https://www.zhihu.com/question/29448299/answer/335573627
+3.2-n个棋盘格, 20 is the best: 在尽可能靠近焦点的前提下，彼此位姿越不同越好。位姿越不同的两张棋盘格图片，其利用角点坐标建立的方程就越独立，越有代表性。
+4.Matrix
+	a).外参数矩阵。告诉你现实世界点(世界坐标)是怎样经过旋转和平移，然后落到另一个现实世界点(摄像机坐标)上。
+	b).参数矩阵。告诉你上述那个点在1的基础上，是如何继续经过摄像机的镜头、并通过针孔成像和电子转化而成为像素点的。
+	c).畸变矩阵。告诉你为什么上面那个像素点并没有落在理论计算该落在的位置上，还产生了一定的偏移和变形
+	d).对于双目视觉系统，通过立体标定还能进一步得到 结构参数-告诉你右摄像机是怎样相对于左摄像机经过旋转和平移达到现在的位置。
+5.achived by matlab, opencv 单目标定函数calibracamera()、畸变校正函数undistortinitialmap()、双目标定函数stereocalibrate()……
+

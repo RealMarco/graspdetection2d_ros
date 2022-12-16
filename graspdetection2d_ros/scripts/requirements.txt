@@ -1,0 +1,13 @@
+numpy==1.17.4
+opencv-python==4.5.4.60
+matplotlib==3.1.2
+scikit-image==0.19.1
+imageio==2.13.5
+torch==1.10.1+cu102
+torchvision==0.11.2
+torchsummary==1.5.1 
+tensorboardX==2.4.1
+pyrealsense2==2.50.0.3812
+Pillow==7.0.0
+imagecodecs==2021.11.20
+gpustat==0.6.0

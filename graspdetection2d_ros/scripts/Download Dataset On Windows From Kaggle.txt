@@ -1,0 +1,21 @@
+#安装kaggle
+pip install kaggle
+
+#更新pip
+python -m pip install --upgrade pip
+
+#检查kaggle是否安装成功
+kaggle compeitions list
+
+等几分钟，在C:\Users\Administrator(用户名) 路径就会出现.kaggle\文件夹了
+
+将数据集对应的kaggle.json文件下载到 .kaggle\
+
+（
+#设置下载到指定文件夹 F:\ODandGDSupportFiles\CornellDatasetAll
+kaggle config set -n path -v F:\ODandGDSupportFiles\CornellDatasetAll
+）
+
+#如不设置，默认下载到 C:\Users\Administrator(用户名)\.kaggle\
+kaggle datasets download -d oneoneliu/cornell-grasp
+
