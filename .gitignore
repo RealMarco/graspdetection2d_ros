@@ -1,0 +1,6 @@
+# Ignore files and folders below
+graspdetection2d_ros/scripts/.ipynb_checkpoints
+graspdetection2d_ros/scripts/__pycache__/
+graspdetection2d_ros/scripts/*/__pycache__/
+graspdetection2d_ros/scripts/*/*/__pycache__/
+*pyc

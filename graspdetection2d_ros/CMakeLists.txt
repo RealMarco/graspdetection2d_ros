@@ -19,7 +19,9 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   sensor_msgs
+  geometry_msgs
   std_msgs
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -171,6 +173,7 @@ include_directories(
 catkin_install_python(PROGRAMS
    scripts/GraspDetector2D.py
    scripts/grasps_test.py
+   scripts/GraspDetector2Dv2.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

@@ -22,7 +22,19 @@ $ catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
 P.S.  our graspdetection2d_ros package depends on system python environment
 
 ## Pipeline for run/use graspdetection2d_ros package
+### open the 1st terminal for launching camera
+$ cd catkin_workspace
+$ source devel/setup.bash
+$ roslaunch realsense2_camera rs_camera.launch align_depth:=true
+or $ roslaunch realsense2_camera rs_camera.launch
 
+### open the 2nd terminal for object detection
+$ source devel/setup.bash
+$ roslaunch darknet_ros yolov7x_CASGC.launch
+
+### open the 3rd terminal for grasp detection
+$ source devel/setup.bash
+rosrun graspdetection2d_ros GraspDetector2D.py
 
 # 2. Robotic Grasping Simulation based on CoppeliaSim
 To verify/test the performance of rectangle-represented grasp detection algorithms, this project builts a joint simulation environment in CoppeliaSim (Vrep) based on the UR3 robot, RG2 gripper and a RGB-D camera.   
