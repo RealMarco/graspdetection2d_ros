@@ -1,2 +1,2 @@
-PoseStamped grasp_pose
+geometry_msgs/PoseStamped grasp_pose
 string Class

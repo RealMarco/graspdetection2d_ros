@@ -60,7 +60,7 @@ Above files are located in CoppeliaSim's installation directory, under programmi
 ## 中文使用说明
 物体模型来源 YCB model and object set - http://www.ycbbenchmarks.com/object-models/  
 
-0、安装requirements.txt下的所有依赖包到anaconda（建议，系统python环境或其他虚拟python环境也可）  
+0、(If you have multiple DL frameworks in the environment, manually) 安装requirements.txt下的所有依赖包到anaconda（建议，系统python环境或其他虚拟python环境也可）  
 1、打开CoppeliaSim和anaconda下的任一python编辑器  
 2、将场景文件RoboticGraspingWIthUR3_v4.ttt导入CoppeliaSim  
 3、在CoppeliaSim页面最下方的Lua命令行中输入simRemoteApi.start(19999)，启动Legacy服务端  

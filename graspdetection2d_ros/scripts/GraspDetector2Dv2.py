@@ -6,7 +6,8 @@ Created on Fri Dec 16 18:24:15 2022
 @author: marco
 """
 import sys
-sys.path.append('/home/marco/catkin_workspace/src/graspdetection2d_ros/graspdetection2d_ros/scripts')
+sys.path.append('/home/marco/robotic_sorting/src/graspdetection2d_ros/graspdetection2d_ros/scripts')
+# '/home/marco/catkin_workspace/src/graspdetection2d_ros/graspdetection2d_ros/scripts'
 #if '/usr/lib/python3/dist-packages' in sys.path: # before importing other modules or packages
 #    sys.path.remove('/usr/lib/python3/dist-packages')
 print (sys.path)
@@ -14,7 +15,7 @@ print (sys.path)
 # sys.path.remove('/usr/lib/python3/dist-packages')
 # sys.path.remove('/opt/ros/noetic/lib/python3/dist-packages')
 
-import rospy 
+import rospy
 import numpy as np 
 from threading import Thread
 

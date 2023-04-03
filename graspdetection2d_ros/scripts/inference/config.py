@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 color_img_dir = 'test_color_img/'
 
-args_network='/home/marco/vrep_python/trained-models/cornell-randsplit-rgbd-grconvnet3-drop1-ch32/epoch_19_iou_0.98'
+args_network='/home/marco/robotic_sorting/src/graspdetection2d_ros/graspdetection2d_ros/scripts/trained-models/cornell-randsplit-rgbd-grconvnet3-drop1-ch32/epoch_19_iou_0.98'
 args_force_cpu=False
 
 args_use_depth=True 

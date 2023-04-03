@@ -10,12 +10,14 @@ project(graspdetection2d_ros_msgs)
 find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   geometry_msgs
+  #trajectory_msgs
   message_generation
   #message_runtime
   sensor_msgs
   std_msgs
   
   tf
+  #rospy
 )
 
 ## System dependencies are found with CMake's conventions
@@ -57,6 +59,7 @@ add_message_files(
 	Grasp2DObjects.msg
 	Grasps.msg
 	Grasp.msg
+	GraspPoseClass.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -77,7 +80,8 @@ add_message_files(
 generate_messages(
 	DEPENDENCIES
 	actionlib_msgs#   
-	geometry_msgs#   
+	geometry_msgs#  
+	#trajectory_msgs# 
 	sensor_msgs#   
 	std_msgs
 )
@@ -114,7 +118,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES graspdetection2d_ros_msgs
-	CATKIN_DEPENDS actionlib_msgs geometry_msgs message_runtime sensor_msgs std_msgs # message_generation
+	CATKIN_DEPENDS actionlib_msgs geometry_msgs message_runtime sensor_msgs std_msgs #  trajectory_msgs message_generation
 #  DEPENDS system_lib
 )
 
