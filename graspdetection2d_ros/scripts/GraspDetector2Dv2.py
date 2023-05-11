@@ -25,7 +25,7 @@ from darknet_ros_msgs.msg import BoundingBoxes, BoundingBox # , ObjectCount
 from std_msgs.msg import String
 from sensor_msgs.msg import Image # ?
 from sensor_msgs.msg import CameraInfo
-from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import Quaternion, PoseStamped
 import tf
 
 from graspdetection2d_ros_msgs.msg import Grasp, Grasps, Grasp2DObjects, GraspPoseClass
@@ -62,12 +62,13 @@ def color_img_subscriber():
 # define a depth image callback function
 def dimgCallback(dimg):
     try:
+        dimg.encoding='mono16'
         cv_dimg = cvbridge.imgmsg_to_cv2(dimg, "mono16") #TODO check if it is unit16, desired_encoding="passthrough"
     except CvBridgeError as e:
         rospy.logerr('Converting depth image error: ' + str(e))
     global DepthImage
     DepthImage = cv_dimg
-    rospy.loginfo("Subscribing a depth image from camera with a shape of ", DepthImage.shape) # (H,W,C)
+    rospy.loginfo("Subscribing a depth image from camera with a shape of (%d, %d) "%(DepthImage.shape[0],DepthImage.shape[1])) # (H,W,C)
 
 # define a depth image subscriber
 def depth_img_subscriber():
@@ -174,7 +175,8 @@ def od_img_subscriber():
 # transform from pixel coordinate to camera coordinate
 def coordinateMap(grasp_x,grasp_y):
     global DepthImage, camera_info
-    real_z = 0.001*DepthImage[grasp_y][grasp_x]; #TODO check if the parameter 0.001 is accurate
+    # depth_banana =0.015
+    real_z = 0.015 # 0.001*DepthImage[grasp_y][grasp_x]; #TODO check if the parameter 0.001 is accurate
     # calculate x, y via Camera internal parameter matrix
     real_x = (grasp_x - camera_info.K[2])/camera_info.K[0]*real_z
     real_y = (grasp_y - camera_info.K[5])/camera_info.K[4]*real_z
@@ -182,9 +184,9 @@ def coordinateMap(grasp_x,grasp_y):
     outputPoint=PoseStamped()
     outputPoint.header.frame_id = "/camera_depth_optical_frame"
     outputPoint.header.stamp = rospy.Time.now # now(), timestamp
-    outputPoint.point.x = real_x
-    outputPoint.point.y = real_y
-    outputPoint.point.z = real_z
+    outputPoint.pose.position.x = real_x
+    outputPoint.pose.position.y = real_y
+    outputPoint.pose.position.z = 0.015 # real_z
     
     return outputPoint
 
@@ -239,8 +241,10 @@ def grasps_publisher():
         grasp_pose = PoseStamped()
         grasp_pose.header.frame_id = "/camera_color_optical_frame" #"camera_color_frame"
         grasp_pose.header.stamp = rospy.Time()
-        grasp_pose.pose.position = coordinateMap(grasp.x, grasp.y).point
-        grasp_pose.pose.orientation = tf.createQuaternionMsgFromYaw(grasp.angle) # TODO from Grasp.angle to the yaw of end_effector
+        grasp_pose.pose.position = coordinateMap(grasp.x, grasp.y).pose.position
+        #grasp_pose.pose.orientation = tf.createQuaternionMsgFromYaw(grasp.angle) # TODO from Grasp.angle to the yaw of end_effector
+        q = tf.transformations.quaternion_from_euler(0, 0, grasp.angle)
+        grasp_pose.pose.orientation = Quaternion(*q)
         grasp_pose_publisher.publish(grasp_pose)
         rospy.loginfo("Publishing the best grasp pose of the object with highest confidence score")
         grasp_class = String()
