@@ -64,5 +64,5 @@ class ResidualBlock(nn.Module):
         x = self.bn1(self.conv1(x_in))
         x = F.relu(x)
         x = self.bn2(self.conv2(x))
-        return x + x_in   # shortcut layer when in_channels == out_channels
+        return x + x_in   # shortcut layer when in_channels == out_channels, identity mapping
 
